@@ -3,7 +3,7 @@ from typing import Optional
 from datetime import datetime
 class ProductCreate(BaseModel):
     name : str
-    decription : Optional[str] = ""
+    description : Optional[str] = ""
     category : str
     price : float
     quantity_in_stock : int

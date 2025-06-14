@@ -7,6 +7,7 @@ class UserRegister(BaseModel):
     email: EmailStr
     password : str
     confirm_password : str
+    is_admin: Optional[bool] = False
     created_at : Optional[datetime] = datetime.now()
     updated_at : Optional[datetime] = datetime.now()
 
@@ -15,6 +16,7 @@ class UserResponse(BaseModel):
     name: str
     email: str
     password : str 
+    is_admin: Optional[bool] = False
 
 class UserLogin(BaseModel):
     email: str

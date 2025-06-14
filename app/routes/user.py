@@ -20,7 +20,7 @@ async def register(user:UserRegister):
 @router.post("/login", response_model=dict)
 async def login(user:UserLogin):
     db_user = await get_user_by_email(user.email)
-
+    print(db_user.is_admin)
     if not db_user or not verify(user.password, db_user.password):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Credential!")
     
@@ -28,7 +28,8 @@ async def login(user:UserLogin):
         {
             "id":db_user.id,
             "name":db_user.name,
-            "email":db_user.email
+            "email":db_user.email,
+            "is_admin":db_user.is_admin
         }
     )
 
