@@ -11,6 +11,7 @@ async def register_user(user:UserRegister):
     hashed_password = hash(user.password)
 
     user_data = user.model_dump()
+    
     if user.password != user.confirm_password:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Passwords do not match")
     user_data['password']= hashed_password
