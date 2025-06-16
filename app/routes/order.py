@@ -1,10 +1,8 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from app.models.order import  OrderResponse, OrderUpdate,OrderCreate
-from app.models.cart import Cart
-
 from app.utils.authentication import get_current_user
 from app.utils.dependencies import admin_required_api
-from app.crud.order import checkout,view_order,view_orders,update_order,delete_order
+from app.crud.order import checkout,view_order,view_orders,view_orders_by_admin,update_order,delete_order
 
 order_router = APIRouter(prefix="/orders", tags=["Order"])
 
@@ -21,7 +19,11 @@ async def checkout_api(info:OrderCreate,current_user:dict= Depends(get_current_u
 @order_router.get("/",response_model=list[OrderResponse])
 async def view_orders_api(current_user:dict = Depends(get_current_user)):
     user_id = current_user["id"]
-    orders = await view_orders(user_id)
+    if current_user.get("is_admin"):
+        orders = await view_orders_by_admin()
+
+    else:
+        orders = await view_orders(user_id)
     return [OrderResponse.from_mongo(order) for order in orders]
 
 @order_router.get("/{order_id}", response_model=OrderResponse)

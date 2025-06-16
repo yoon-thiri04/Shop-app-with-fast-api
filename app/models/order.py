@@ -12,6 +12,13 @@ class Address(BaseModel):
     country: str
 
 
+class AddressUpdate(BaseModel):
+    street : Optional[str]=None
+    city: Optional[str] =None
+    state : Optional[str] =None
+    postal_code: Optional[str] =None
+    country: Optional[str] =None
+
 class OrderCreate(BaseModel):
     address: Address
     phone : str
@@ -51,6 +58,6 @@ class OrderResponse(BaseModel):
     
 class OrderUpdate(BaseModel):
     status: Optional[str] = None
-    address: Optional[Address] =None
+    address: Optional[AddressUpdate] =None
     phone: Optional[str] =None
     updated_at: Optional[datetime] = datetime.now()

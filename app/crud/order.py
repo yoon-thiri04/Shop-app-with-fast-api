@@ -24,8 +24,16 @@ async def checkout(user_id: str, info:OrderCreate):
             {"_id":item["product_id"]}
             
         )
+        if not product:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product not found!")
         total_price += product["price"] * item["quantity"]
-
+        if product["quantity_in_stock"]< item["quantity"]:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Not Enough stock for {product["name"]}")
+        
+        await products_collection.update_one(
+            {"_id":item["product_id"]},
+            {"$inc":{"quantity_in_stock": -item["quantity"]}}
+        )
         order_items.append({
             "product_id": item["product_id"],
             "quantity": item["quantity"],
@@ -57,6 +65,10 @@ async def view_orders(user_id:str):
     }).to_list()
     if not orders:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Orders with this user had not been placed!")
+    return orders
+
+async def view_orders_by_admin():
+    orders = await orders_collection.find().to_list()
     return orders
 
 async def view_order(order_id:str):
