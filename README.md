@@ -33,7 +33,7 @@ A modern **Shop App** built with **FastAPI** and **MongoDB** using **AsyncMotor*
 
 ## Testing
 
-All endpoints have been tested using Postman to ensure functionality and correct responses.
+All endpoints have been tested using **Postman** to ensure **functionality** and correct responses.
 
 ## License
 
