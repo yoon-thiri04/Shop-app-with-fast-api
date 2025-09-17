@@ -30,6 +30,11 @@ A modern **Shop App** built with **FastAPI** and **MongoDB** using **AsyncMotor*
 - **Database:** MongoDB with AsyncMotor client  
 - **Authentication:** JWT, OAuth  
 - **Python Async:** Async/Await for non-blocking operations
+
+## Testing
+
+All endpoints have been tested using Postman to ensure functionality and correct responses.
+
 ## License
 
 MIT License
