@@ -23,7 +23,6 @@ A modern **Shop App** built with **FastAPI** and **MongoDB** using **AsyncMotor*
   - Place orders
   - Update orders
   - View order details
-  - 
 ## Tech Stack
 
 - **Backend:** FastAPI  
